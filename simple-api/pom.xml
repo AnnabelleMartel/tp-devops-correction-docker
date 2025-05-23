@@ -21,7 +21,7 @@
 		<sonar.organization>tp2-git-devops</sonar.organization>
   		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 	</properties>
-=
+
 
 	<dependencies>
 		<dependency>
