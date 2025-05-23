@@ -1,0 +1,36 @@
+# Nom du workflow affiché dans l'interface GitHub Actions
+name: CI devops 2025
+
+# Déclencheurs du workflow
+on:
+  # Déclenchement lors d'un push sur la branche main
+  push:
+    branches: 
+      - main
+  # Déclenchement lors d'une pull request vers n'importe quelle branche
+  pull_request:
+
+# Définition des jobs à exécuter
+jobs:
+  # Nom du job : test-backend
+  test-backend: 
+    # Système d’exploitation utilisé pour exécuter le job
+    runs-on: ubuntu-24.04
+
+    steps:
+      # Étape 1 : Cloner le code du dépôt dans le runner GitHub
+      - uses: actions/checkout@v4
+
+      # Étape 2 : Installer et configurer Java JDK 21 avec la distribution Temurin
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'           # Version du JDK
+          distribution: 'temurin'      # Distribution du JDK (Temurin est une distribution open-source)
+
+      # Étape 3 : Nettoyer, compiler et tester le projet avec Maven
+      - name: Build and test with Maven
+        run: mvn clean verify --file ./simple-api/pom.xml
+        # 'clean' supprime les fichiers précédemment compilés
+        # 'verify' compile, exécute les tests et vérifie la validité du projet
+        # '--file' précise le chemin du fichier pom.xml pour cibler le bon sous-module
